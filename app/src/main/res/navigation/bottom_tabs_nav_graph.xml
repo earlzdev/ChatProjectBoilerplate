@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_tabs_nav_graph">
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.earl.chatprojectboilerplate.presentation.chat.ChatFragment"
+        android:label="ChatFragment" >
+        <action
+            android:id="@+id/action_chatFragment_to_messagingFragment"
+            app:destination="@id/messagingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.earl.chatprojectboilerplate.presentation.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/messagingFragment"
+        android:name="com.earl.chatprojectboilerplate.presentation.chat.MessagingFragment"
+        android:label="MessagingFragment" />
+
+</navigation>
