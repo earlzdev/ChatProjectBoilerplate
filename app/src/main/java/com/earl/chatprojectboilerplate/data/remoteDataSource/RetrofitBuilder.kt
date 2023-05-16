@@ -2,7 +2,9 @@ package com.earl.chatprojectboilerplate.data.remoteDataSource
 
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,3 +27,41 @@ fun buildNetworkService() : NetworkService {
         .build()
         .create(NetworkService::class.java)
 }
+
+//class AuthInterceptor(): Interceptor {
+//
+//    private fun refreshToken(): Response {
+//        // make an API call to get new token
+//        return if (response.isSuccessful) {
+//            val token = response.body()?.token
+//            saveTokenToLocalStorage(token)
+//            val newRequest = request
+//                .newBuilder()
+//                .header("Authorization", "Bearer $token")
+//                .build()
+//            chain.proceed(newRequest)
+//        } else {
+//            chain.proceed(request)
+//        }
+//    }
+//
+//    override fun intercept(chain: Interceptor.Chain): Response {
+//        val token = getFromStorage()
+//        val request = chain.request()
+//        if (token.isNullOrEmpty()) {
+//            val newRequest = request
+//                .newBuilder()
+//                .header("Authorization", "Bearer $token")
+//                .build()
+//            val response = chain.proceed(newRequest)
+//            return if (response.code() == 401) {
+//                refreshToken()
+//            } else {
+//                response
+//            }
+//        } else {
+//            refreshToken()
+//        }
+//        return chain.proceed(request)
+//    }
+//}

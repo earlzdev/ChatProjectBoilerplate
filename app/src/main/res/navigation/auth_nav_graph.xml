@@ -11,11 +11,18 @@
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_checkAuthCodeFragment"
+            app:destination="@id/checkAuthCodeFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.earl.chatprojectboilerplate.presentation.signUp.SignUpFragment"
         android:label="SignUpFragment" />
+    <fragment
+        android:id="@+id/checkAuthCodeFragment"
+        android:name="com.earl.chatprojectboilerplate.presentation.singIn.CheckAuthCodeFragment"
+        android:label="CheckAuthCodeFragment" />
 
 </navigation>

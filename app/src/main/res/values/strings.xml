@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ChatProjectBoilerplate</string>
+    <string name="phone_hint">Phone number</string>
+    <string name="sign_in">Sign in</string>
+    <string name="welcome">Welcome!</string>
+    <string name="enter_code_from_sms">Enter code from sms</string>
+    <string name="enter_your_phone_number_to_sign_in">Enter your phone number to sign in</string>
+    <string name="enter_code">Enter code</string>
 </resources>
