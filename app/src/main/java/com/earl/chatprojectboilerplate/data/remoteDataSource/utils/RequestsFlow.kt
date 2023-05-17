@@ -1,4 +1,4 @@
-package com.earl.chatprojectboilerplate.data.remoteDataSource
+package com.earl.chatprojectboilerplate.data.remoteDataSource.utils
 
 import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.AccessTokensDtoMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AccessTokensDto

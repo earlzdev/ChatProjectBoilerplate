@@ -1,4 +1,4 @@
-package com.earl.chatprojectboilerplate.data.remoteDataSource
+package com.earl.chatprojectboilerplate.data.remoteDataSource.utils
 
 interface NetworkServiceConfig {
 
