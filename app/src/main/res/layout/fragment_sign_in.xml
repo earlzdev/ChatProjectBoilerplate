@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="140dp"
         />
 
     <TextView
@@ -65,6 +65,7 @@
         app:layout_constraintStart_toEndOf="@id/choose_country_flag_and_code_view"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
+        android:maxLength="10"
         />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -75,11 +76,13 @@
         android:fontFamily="@font/roboto_medium"
         android:textSize="16sp"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/phoneEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="40dp"
         android:layout_marginHorizontal="40dp"
+        android:background="@drawable/btn_background"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
