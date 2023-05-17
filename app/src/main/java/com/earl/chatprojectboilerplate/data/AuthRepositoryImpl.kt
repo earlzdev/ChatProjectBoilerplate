@@ -1,25 +1,25 @@
 package com.earl.chatprojectboilerplate.data
 
-import com.earl.chatprojectboilerplate.data.remoteDataSource.NetworkService
-import com.earl.chatprojectboilerplate.data.remoteDataSource.NetworkServiceConfig
+import com.earl.chatprojectboilerplate.data.remoteDataSource.*
 import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.AccessTokensDtoMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.CurrentCountryCodeDtoMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AuthRequestBody
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.CheckAuthCodeDto
-import com.earl.chatprojectboilerplate.domain.Repository
+import com.earl.chatprojectboilerplate.domain.AuthRepository
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse
 import com.earl.chatprojectboilerplate.domain.models.CurrentCountryCode
 import com.earl.chatprojectboilerplate.domain.models.ErrorResponse
-import com.earl.chatprojectboilerplate.presentation.utils.log
 import com.google.gson.Gson
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class RepositoryImpl @Inject constructor(
+class AuthRepositoryImpl @Inject constructor(
     private val networkService: NetworkService,
+    private val authApiService: AuthApiService,
     private val currentCountryCodeDtoMapper: CurrentCountryCodeDtoMapper<CurrentCountryCode>,
     private val accessTokensDtoMapper: AccessTokensDtoMapper<AccessTokens>
-): Repository {
+): AuthRepository {
 
     override suspend fun fetchCurrentCountryPhoneCode(): ApiResponse<CurrentCountryCode> = try {
         val ip = networkService.fetchCurrentIpAddress(NetworkServiceConfig.Endpoints.CurrentIp().url).ip
@@ -38,15 +38,23 @@ class RepositoryImpl @Inject constructor(
         null
     }
 
-    override suspend fun checkAuthCode(phone: String, code: String): ApiResponse<AccessTokens> = try {
-        ApiResponse.Success(
-            networkService
-                .checkAuthRequest(CheckAuthCodeDto(phone, code))
-                .map(accessTokensDtoMapper)
-        )
-    } catch (e: Exception) {
-        val parsedError = parseException(e)
-        ApiResponse.Failure(parsedError.message, parsedError.code)
+//    override suspend fun login(phone: String, code: String): ApiResponse<AccessTokens> = try {
+//        ApiResponse.Success(
+//            networkService
+//                .checkAuthRequest(CheckAuthCodeDto(phone, code))
+//                .map(accessTokensDtoMapper)
+//        )
+//    } catch (e: Exception) {
+//        val parsedError = parseException(e)
+//        ApiResponse.Failure(parsedError.message, parsedError.code)
+//    }
+
+    fun log() = apiRequestFlow {
+        authApiService.login(CheckAuthCodeDto("", "13337"))
+    }
+
+    override fun login(phone: String, code: String): Flow<ApiResponse<AccessTokens>> = authRequestFlow(accessTokensDtoMapper) {
+        authApiService.login(CheckAuthCodeDto(phone, code))
     }
 
     private fun parseException(ex: Exception) =

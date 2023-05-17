@@ -1,14 +1,16 @@
 package com.earl.chatprojectboilerplate.domain
 
+import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AccessTokensDto
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse
 import com.earl.chatprojectboilerplate.domain.models.CurrentCountryCode
+import kotlinx.coroutines.flow.Flow
 
-interface Repository {
+interface AuthRepository {
 
     suspend fun fetchCurrentCountryPhoneCode(): ApiResponse<CurrentCountryCode>
 
     suspend fun sendAuthRequest(phone: String): Boolean?
 
-    suspend fun checkAuthCode(phone: String, code: String): ApiResponse<AccessTokens>
+    fun login(phone: String, code: String): Flow<ApiResponse<AccessTokens>>
 }

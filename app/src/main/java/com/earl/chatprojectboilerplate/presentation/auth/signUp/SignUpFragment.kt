@@ -1,4 +1,4 @@
-package com.earl.chatprojectboilerplate.presentation.signUp
+package com.earl.chatprojectboilerplate.presentation.auth.signUp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

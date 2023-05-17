@@ -7,8 +7,16 @@
     <fragment
         android:id="@+id/mainBottomNavFragment"
         android:name="com.earl.chatprojectboilerplate.presentation.MainBottomNavFragment"
-        android:label="MainBottomNavFragment" />
+        android:label="MainBottomNavFragment" >
+        <deepLink app:uri="android-app://com.earl.chatprojectboilerplate.presentation/MainBottomNavFragment" />
+    </fragment>
 
-    <include app:graph="@navigation/auth_nav_graph" />
+    <include
+        android:id="@+id/auth_nav_graph"
+        app:graph="@navigation/auth_nav_graph">
+        <action
+            android:id="@+id/action_auth_to_main"
+            app:destination="@id/mainBottomNavFragment" />
+    </include>
 
 </navigation>

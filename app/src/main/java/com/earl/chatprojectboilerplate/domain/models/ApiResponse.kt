@@ -4,6 +4,8 @@ sealed class ApiResponse<out T> {
 
     object Loading: ApiResponse<Nothing>()
 
+    object Initial: ApiResponse<Nothing>()
+
     data class Success<out T>(
         val data: T
     ): ApiResponse<T>()
