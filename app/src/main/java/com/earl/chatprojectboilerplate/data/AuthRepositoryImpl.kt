@@ -5,6 +5,7 @@ import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.AccessToken
 import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.CurrentCountryCodeDtoMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AuthRequestBody
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.CheckAuthCodeDto
+import com.earl.chatprojectboilerplate.data.remoteDataSource.models.RegisterDataDto
 import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.NetworkServiceConfig
 import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.authRequestFlow
 import com.earl.chatprojectboilerplate.domain.AuthRepository
@@ -41,6 +42,14 @@ class AuthRepositoryImpl @Inject constructor(
 
     override fun login(phone: String, code: String): Flow<ApiResponse<AccessTokens>> = authRequestFlow(accessTokensDtoMapper) {
         authApiService.login(CheckAuthCodeDto(phone, code))
+    }
+
+    override fun registerNewUser(
+        phone: String,
+        name: String,
+        username: String,
+    ): Flow<ApiResponse<AccessTokens>> = authRequestFlow(accessTokensDtoMapper) {
+        authApiService.register(RegisterDataDto(phone, name, username))
     }
 
     private fun parseException(ex: Exception) =

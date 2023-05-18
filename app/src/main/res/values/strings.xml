@@ -8,4 +8,13 @@
     <string name="enter_code">Enter code</string>
     <string name="filed_cannot_be_empty">Field cannot be empty!</string>
     <string name="phone_number_str">phone_number</string>
+    <string name="phone_number_s">Phone number</string>
+    <string name="signing_up">Signing up</string>
+    <string name="sign_up">Sign up</string>
+    <string name="username">Username</string>
+    <string name="enter_your_username">Enter your username:</string>
+    <string name="name">Name</string>
+    <string name="enter_your_name">Enter your name:</string>
+    <string name="too_short_name">Too short name</string>
+    <string name="too_short_username">Too short username</string>
 </resources>

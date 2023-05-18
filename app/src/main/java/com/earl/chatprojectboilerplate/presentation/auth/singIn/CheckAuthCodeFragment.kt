@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.earl.chatprojectboilerplate.R
 import com.earl.chatprojectboilerplate.databinding.FragmentAuthCodeBinding
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse
@@ -57,10 +59,15 @@ class CheckAuthCodeFragment: BaseFragment<FragmentAuthCodeBinding>() {
                     Toast.makeText(requireContext(), "Failed, ${it.errorMessage}", Toast.LENGTH_SHORT).show()
                 }
                 is ApiResponse.Success -> {
-                    tokenViewModel.saveTokens(it.data)
-                    requireActivity().findNavController(R.id.main_nav_host_fragment).navigate(
-                        Uri.parse(
-                            NavUri.authGraphToBottomNavFragment))
+                    if (it.data.isUserExists) {
+                        tokenViewModel.saveTokens(it.data)
+                        requireActivity().findNavController(R.id.main_nav_host_fragment).navigate(
+                            Uri.parse(
+                                NavUri.authGraphToBottomNavFragment))
+                    } else {
+                        val bundle = bundleOf("phone_number" to getPhoneNumber())
+                        findNavController().navigate(R.id.action_checkAuthCodeFragment_to_signUpFragment, bundle)
+                    }
                 }
                 else -> {}
             }
