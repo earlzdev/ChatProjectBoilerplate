@@ -1,10 +1,13 @@
 package com.earl.chatprojectboilerplate.data.remoteDataSource.utils
 
 import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.AccessTokensDtoMapper
+import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileDtoMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AccessTokensDto
+import com.earl.chatprojectboilerplate.data.remoteDataSource.models.UserProfileDataDto
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse
 import com.earl.chatprojectboilerplate.domain.models.ErrorResponse
+import com.earl.chatprojectboilerplate.domain.models.UserProfileData
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,15 +16,14 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withTimeoutOrNull
 import retrofit2.Response
 
-fun<T> apiRequestFlow(call: suspend () -> Response<T>): Flow<ApiResponse<T>> = flow {
+fun apiRequestFlow(mapper: UserProfileDtoMapper<UserProfileData>, call: suspend () -> Response<UserProfileDataDto>): Flow<ApiResponse<UserProfileData>> = flow {
     emit(ApiResponse.Loading)
-
     withTimeoutOrNull(20000L) {
         val response = call()
         try {
             if (response.isSuccessful) {
                 response.body()?.let { data ->
-                    emit(ApiResponse.Success(data))
+                    emit(ApiResponse.Success(data.map(mapper)))
                 }
             } else {
                 response.errorBody()?.let { error ->
