@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/auth_nav_graph"
+    app:startDestination="@id/signInFragment">
+
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.earl.chatprojectboilerplate.presentation.auth.singIn.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_checkAuthCodeFragment"
+            app:destination="@id/checkAuthCodeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.earl.chatprojectboilerplate.presentation.auth.signUp.SignUpFragment"
+        android:label="SignUpFragment" >
+        <argument
+            android:name="phone_number"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkAuthCodeFragment"
+        android:name="com.earl.chatprojectboilerplate.presentation.auth.singIn.CheckAuthCodeFragment"
+        android:label="CheckAuthCodeFragment">
+        <argument
+            android:name="phone_number"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_checkAuthCodeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+
+</navigation>
