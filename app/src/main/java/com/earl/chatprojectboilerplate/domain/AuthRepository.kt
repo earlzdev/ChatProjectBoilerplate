@@ -1,6 +1,5 @@
 package com.earl.chatprojectboilerplate.domain
 
-import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AccessTokensDto
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse
 import com.earl.chatprojectboilerplate.domain.models.CurrentCountryCode

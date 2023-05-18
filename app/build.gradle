@@ -76,6 +76,11 @@ dependencies {
 
     //DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // phones
+    implementation 'com.github.yasserakbbach:PhoneNumberPicker:1.0.0'
+//    implementation 'com.fredporciuncula:phonemoji:1.5.1'
+//    implementation 'com.github.ibrahimsn98:PhoneNumberKit:2.0.6'
 }
 
 kapt {

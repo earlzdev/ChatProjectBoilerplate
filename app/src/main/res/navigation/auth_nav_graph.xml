@@ -23,6 +23,10 @@
     <fragment
         android:id="@+id/checkAuthCodeFragment"
         android:name="com.earl.chatprojectboilerplate.presentation.auth.singIn.CheckAuthCodeFragment"
-        android:label="CheckAuthCodeFragment" />
+        android:label="CheckAuthCodeFragment">
+        <argument
+            android:name="phone_number"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

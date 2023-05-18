@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
@@ -42,7 +43,7 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
         initCurrentRegionPhoneCodeAndFlag()
         initSuccessfulAuthCodeRequest()
         binding.signInBtn.setOnClickListener {
-            viewModel.fetchAuthRequestCode(binding.phoneEditText.text.trim().toString())
+            viewModel.fetchAuthRequestCode(binding.phoneNumber.getFullPhoneNumber())
         }
     }
 
@@ -52,7 +53,7 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collect {
                     if (it is ApiResponse.Success) {
-                        binding.chooseCountryFlagAndCodeView.initFlagAndCode(it.data)
+                        binding.phoneNumber.setDefaultCountry(it.data.code)
                     }
                 }
         }
@@ -61,20 +62,8 @@ class SignInFragment: BaseFragment<FragmentSignInBinding>() {
     private fun initSuccessfulAuthCodeRequest() {
         viewModel.successfulAuthCode.onEach {
             if (it) {
-                findNavController().navigate(R.id.action_signInFragment_to_checkAuthCodeFragment)
-            }
-        }.launchIn(lifecycleScope)
-        viewModel.accessTokens.onEach {
-            when(it) {
-                is ApiResponse.Failure -> {
-                    log("fail ${it.errorMessage}, ${it.code}")
-                }
-                is ApiResponse.Success -> {
-                    tokenViewModel.saveTokens(it.data)
-                    log("success ${it.data}")
-                    requireActivity().findNavController(R.id.main_nav_host_fragment).navigate(Uri.parse(NavUri.authGraphToBottomNavFragment))
-                }
-                else -> {}
+                val bundle = bundleOf("phone_number" to binding.phoneNumber.getFullPhoneNumber())
+                findNavController().navigate(R.id.action_signInFragment_to_checkAuthCodeFragment, bundle)
             }
         }.launchIn(lifecycleScope)
     }

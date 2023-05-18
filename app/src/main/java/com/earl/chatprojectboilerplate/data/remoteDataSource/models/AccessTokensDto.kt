@@ -6,11 +6,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AccessTokensDto(
-    @SerializedName("refresh_token") val refreshToken: String,
-    @SerializedName("access_token") val accessToken: String,
-    @SerializedName("user_id") val userId: Int,
-    @SerializedName("is_user_exists") val isUserExists: Boolean
+    @SerializedName("refresh_token") val refreshToken: String?,
+    @SerializedName("access_token") val accessToken: String?,
+    @SerializedName("user_id") val userId: Int?,
+    @SerializedName("is_user_exists") val isUserExists: Boolean?
 ) {
     fun <T> map(mapper: AccessTokensDtoMapper<T>) =
-        mapper.map(refreshToken, accessToken, userId, isUserExists)
+        mapper.map(
+            refreshToken ?: "",
+            accessToken ?: "",
+            userId ?: -1,
+            isUserExists ?: false
+        )
 }

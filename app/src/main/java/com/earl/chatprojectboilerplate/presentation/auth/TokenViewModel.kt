@@ -16,7 +16,7 @@ class TokenViewModel @Inject constructor(
     private val tokenManager: TokenManager,
 ): ViewModel() {
 
-    val token = MutableLiveData<String?>()
+    private val token = MutableLiveData<String?>()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {

@@ -1,12 +1,12 @@
 package com.earl.chatprojectboilerplate.data
 
 import com.earl.chatprojectboilerplate.data.remoteDataSource.AuthApiService
-import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.NetworkServiceConfig
-import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.authRequestFlow
 import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.AccessTokensDtoMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.CurrentCountryCodeDtoMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AuthRequestBody
 import com.earl.chatprojectboilerplate.data.remoteDataSource.models.CheckAuthCodeDto
+import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.NetworkServiceConfig
+import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.authRequestFlow
 import com.earl.chatprojectboilerplate.domain.AuthRepository
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse

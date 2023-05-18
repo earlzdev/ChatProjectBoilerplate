@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CurrentCountryPhoneCode(
-    @SerializedName("calling_code") val code: String,
+    @SerializedName("country_code") val code: String,
     val flag: CurrentCountryFlag
 ) {
     fun <T> map(mapper: CurrentCountryCodeDtoMapper<T>) =

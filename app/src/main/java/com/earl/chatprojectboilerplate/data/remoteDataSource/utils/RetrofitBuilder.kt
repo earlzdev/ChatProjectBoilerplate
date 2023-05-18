@@ -95,8 +95,8 @@ class AuthAuthenticator @Inject constructor(
             }
 
             newToken.body()?.let {
-                tokenManager.saveAccessToken(it.accessToken)
-                tokenManager.saveRefreshToken(it.refreshToken)
+                tokenManager.saveAccessToken(it.accessToken ?: "")
+                tokenManager.saveRefreshToken(it.refreshToken ?: "")
                 response.request.newBuilder()
                     .header("Authorization", "Bearer ${it.accessToken}")
                     .build()
