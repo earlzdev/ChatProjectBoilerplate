@@ -49,4 +49,11 @@ class AuthViewModel @Inject constructor(
     ) {
         authRepository.login(phone, code)
     }
+
+    fun register(phone: String, name: String, username: String, coroutinesErrorHandler: CoroutinesErrorHandler) = baseRequest(
+        _accessTokens,
+        coroutinesErrorHandler
+    ) {
+        authRepository.registerNewUser(phone, name, username)
+    }
 }

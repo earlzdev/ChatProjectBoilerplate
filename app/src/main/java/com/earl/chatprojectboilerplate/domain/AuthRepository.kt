@@ -12,4 +12,6 @@ interface AuthRepository {
     suspend fun sendAuthRequest(phone: String): Boolean?
 
     fun login(phone: String, code: String): Flow<ApiResponse<AccessTokens>>
+
+    fun registerNewUser(phone: String, name: String, username: String): Flow<ApiResponse<AccessTokens>>
 }

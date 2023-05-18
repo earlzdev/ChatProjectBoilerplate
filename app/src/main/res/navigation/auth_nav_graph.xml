@@ -19,7 +19,11 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.earl.chatprojectboilerplate.presentation.auth.signUp.SignUpFragment"
-        android:label="SignUpFragment" />
+        android:label="SignUpFragment" >
+        <argument
+            android:name="phone_number"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/checkAuthCodeFragment"
         android:name="com.earl.chatprojectboilerplate.presentation.auth.singIn.CheckAuthCodeFragment"
@@ -27,6 +31,9 @@
         <argument
             android:name="phone_number"
             app:argType="string" />
+        <action
+            android:id="@+id/action_checkAuthCodeFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
     </fragment>
 
 </navigation>

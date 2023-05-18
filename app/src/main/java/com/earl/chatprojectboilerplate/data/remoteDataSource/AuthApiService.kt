@@ -5,6 +5,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Url
 
 interface AuthApiService {
@@ -17,6 +18,11 @@ interface AuthApiService {
     @POST("/api/v1/users/check-auth-code/")
     suspend fun login(
         @Body checkDto: CheckAuthCodeDto
+    ): Response<AccessTokensDto>
+
+    @POST("/api/v1/users/register/")
+    suspend fun register(
+        @Body registerDataDto: RegisterDataDto
     ): Response<AccessTokensDto>
 
     @GET

@@ -81,6 +81,9 @@ dependencies {
     implementation 'com.github.yasserakbbach:PhoneNumberPicker:1.0.0'
 //    implementation 'com.fredporciuncula:phonemoji:1.5.1'
 //    implementation 'com.github.ibrahimsn98:PhoneNumberKit:2.0.6'
+
+    //round pictures
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }
 
 kapt {
