@@ -8,17 +8,25 @@ class BaseUserProfileDbToMainMapper @Inject constructor(): UserProfileDbToMainMa
 
     override fun map(
         id: Int,
+        name: String,
         username: String,
         phone: String,
         city: String,
         birthday: String,
         about: String,
+        vk: String,
+        inst: String,
+        avatar: String,
     ) = UserProfileData(
         id,
+        name,
         username,
         phone,
         city,
         birthday,
-        about
+        about,
+        vk,
+        inst,
+        avatar
     )
 }

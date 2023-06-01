@@ -10,9 +10,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.earl.chatprojectboilerplate.R
 import com.earl.chatprojectboilerplate.databinding.FragmentEditUserProfileBinding
 import com.earl.chatprojectboilerplate.domain.models.DbResponse
+import com.earl.chatprojectboilerplate.domain.models.UpdateAvatarModel
+import com.earl.chatprojectboilerplate.domain.models.UpdateUserProfileModel
 import com.earl.chatprojectboilerplate.presentation.utils.BaseFragment
 import com.earl.chatprojectboilerplate.presentation.utils.log
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,6 +51,11 @@ class EditProfileFragment: BaseFragment<FragmentEditUserProfileBinding>() {
                             binding.birthday.setText(it.value.birthday)
                             binding.city.setText(it.value.city)
                             binding.about.setText(it.value.about)
+                            binding.vk.setText(it.value.vk)
+                            binding.inst.setText(it.value.inst)
+                            if (it.value.avatar != "") {
+                                Glide.with(binding.userAvatar).load(it.value.avatar).into(binding.userAvatar)
+                            }
                         }
                         is DbResponse.Fail -> {
                             Toast.makeText(requireContext(), "Failed, ${it.error}", Toast.LENGTH_SHORT).show()
@@ -57,6 +65,20 @@ class EditProfileFragment: BaseFragment<FragmentEditUserProfileBinding>() {
                 }
         }
         binding.saveBtn.setOnClickListener {
+            viewModel.updateUserAvatarModel(
+                UpdateUserProfileModel(
+                    "",
+                    "",
+                    binding.birthday.text.toString(),
+                    binding.city.text.toString(),
+                    binding.vk.text.toString(),
+                    binding.inst.text.toString(),
+                    binding.about.text.toString(),
+                    UpdateAvatarModel(
+                        "", ""
+                    )
+                )
+            )
             findNavController().popBackStack()
         }
     }

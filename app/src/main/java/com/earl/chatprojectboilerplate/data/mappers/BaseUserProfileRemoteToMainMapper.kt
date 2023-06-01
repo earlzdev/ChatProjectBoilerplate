@@ -24,10 +24,14 @@ class BaseUserProfileRemoteToMainMapper @Inject constructor(): UserProfileDataRe
         avatars: String,
     ) = UserProfileData(
         id,
+        name,
         username,
         phone,
         city,
         birthday,
-        status
+        status,
+        vk,
+        instagram,
+        avatar
     )
 }

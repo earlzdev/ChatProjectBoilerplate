@@ -11,7 +11,9 @@ import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.apiRequestFlo
 import com.earl.chatprojectboilerplate.domain.MainRepository
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse
 import com.earl.chatprojectboilerplate.domain.models.DbResponse
+import com.earl.chatprojectboilerplate.domain.models.UpdateUserProfileModel
 import com.earl.chatprojectboilerplate.domain.models.UserProfileData
+import com.earl.chatprojectboilerplate.presentation.utils.log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.toList
 import javax.inject.Inject
@@ -50,6 +52,15 @@ class MainRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             DbResponse.Fail(e.message.toString())
+        }
+    }
+
+    override suspend fun updateProfileInfo(updateModel: UpdateUserProfileModel) {
+        try {
+            networkService.updateUserProfileInfo(updateModel)
+        } catch (e: Exception) {
+            log("upadte error -> $e")
+            e.printStackTrace()
         }
     }
 }

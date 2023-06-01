@@ -24,10 +24,14 @@ class BaseUserProfileRemoteToDbMapper @Inject constructor(): UserProfileRemoteTo
         avatars: String,
     ) = UserProfileInfoDb(
         id,
+        name,
         username,
         phone,
         city,
         birthday,
-        status
+        status,
+        vk,
+        instagram,
+        avatar
     )
 }

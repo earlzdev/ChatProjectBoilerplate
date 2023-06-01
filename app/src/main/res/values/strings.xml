@@ -23,4 +23,8 @@
     <string name="phone_s">Phone: %s</string>
     <string name="edit">Edit</string>
     <string name="edit_your_profile">Edit your profile</string>
+    <string name="birthdaysd">Birthday:</string>
+    <string name="city">City</string>
+    <string name="instagram">Instagram:</string>
+    <string name="vk">VK:</string>
 </resources>
