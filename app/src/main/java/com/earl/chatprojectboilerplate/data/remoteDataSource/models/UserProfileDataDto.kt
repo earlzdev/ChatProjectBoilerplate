@@ -1,14 +1,19 @@
 package com.earl.chatprojectboilerplate.data.remoteDataSource.models
 
-import com.earl.chatprojectboilerplate.data.mappers.AvatarsDtoMapper
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileDtoMapper
+import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileDataRemoteToMainMapper
+import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileRemoteToDbMapper
+import com.earl.chatprojectboilerplate.domain.models.UserAvatars
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
+data class UserProfileResponse(
+    @SerializedName("profile_data") val data: UserProfileDataDto
+)
+
 @Serializable
 data class UserProfileDataDto(
-    @SerializedName("name") val name: String,
-    @SerializedName("username") val username: String,
+    @SerializedName("name") val name: String?,
+    @SerializedName("username") val username: String?,
     @SerializedName("birthday") val birthday: String?,
     @SerializedName("city") val city: String?,
     @SerializedName("vk") val vk: String?,
@@ -21,12 +26,12 @@ data class UserProfileDataDto(
     @SerializedName("created") val created: String?,
     @SerializedName("phone") val phone: String?,
     @SerializedName("completed_task") val completed_task: Int?,
-    @SerializedName("avatars") val avatars: AvatarsDto?,
+    @SerializedName("avatars") val avatars: UserAvatars?,
 ) {
-    fun <T> map(mapper: UserProfileDtoMapper<T>) =
+    fun <T> map(mapper: UserProfileDataRemoteToMainMapper<T>) =
         mapper.map(
-            name,
-            username,
+            name ?: "",
+            username ?: "",
             birthday ?: "",
             city ?: "",
             vk ?: "",
@@ -35,20 +40,29 @@ data class UserProfileDataDto(
             avatar ?: "",
             id ?: 0,
             last ?: "",
-            online ?: false,
+            online ?: true,
             created ?: "",
             phone ?: "",
             completed_task ?: 0,
-            avatars
+            avatar ?: ""
         )
-}
 
-@Serializable
-data class AvatarsDto(
-    @SerializedName("avatar") val avatar: String,
-    @SerializedName("bigAvatar") val bigAvatar: String,
-    @SerializedName("miniAvatar") val miniAvatar: String,
-) {
-    fun <T> map(mapper: AvatarsDtoMapper<T>) =
-        mapper.map(avatar, bigAvatar, miniAvatar)
+    fun <T> mapToDb(mapper: UserProfileRemoteToDbMapper<T>) =
+        mapper.map(
+            name ?: "",
+            username ?: "",
+            birthday ?: "",
+            city ?: "",
+            vk ?: "",
+            instagram ?: "",
+            status ?: "",
+            avatar ?: "",
+            id ?: 0,
+            last ?: "",
+            online ?: true,
+            created ?: "",
+            phone ?: "",
+            completed_task ?: 0,
+            avatar ?: ""
+        )
 }

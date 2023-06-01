@@ -1,8 +1,6 @@
 package com.earl.chatprojectboilerplate.data.remoteDataSource.mappers
 
-import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AvatarsDto
-
-interface UserProfileDtoMapper<T> {
+interface UserProfileDataRemoteToMainMapper<T> {
 
     fun map(
         name: String,
@@ -19,6 +17,6 @@ interface UserProfileDtoMapper<T> {
         created: String,
         phone: String,
         completed_task: Int,
-        avatars: AvatarsDto?,
+        avatars: String,
     ): T
 }
