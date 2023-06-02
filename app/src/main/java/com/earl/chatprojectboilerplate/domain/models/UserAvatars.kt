@@ -1,7 +1,11 @@
 package com.earl.chatprojectboilerplate.domain.models
 
+import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UserAvatars(
-    val avatar: String,
-    val bigAvatar: String,
-    val miniAvatar: String
+    @SerializedName("avatar") val avatar: String,
+    @SerializedName("bigAvatar") val bigAvatar: String,
+    @SerializedName("miniAvatar") val miniAvatar: String
 )

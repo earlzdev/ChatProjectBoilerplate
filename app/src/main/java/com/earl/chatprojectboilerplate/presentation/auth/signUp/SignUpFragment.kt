@@ -62,7 +62,6 @@ class SignUpFragment: BaseFragment<FragmentSignUpBinding>() {
             when(it) {
                 is ApiResponse.Failure -> {
                     Toast.makeText(requireContext(), "Failed, ${it.errorMessage}", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(requireContext(), "Failed cause ${it.errorMessage}", Toast.LENGTH_SHORT).show()
                 }
                 is ApiResponse.Success -> {
                     tokenViewModel.saveTokens(it.data)

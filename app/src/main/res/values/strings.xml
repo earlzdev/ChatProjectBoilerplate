@@ -17,6 +17,15 @@
     <string name="enter_your_name">Enter your name:</string>
     <string name="too_short_name">Too short name</string>
     <string name="too_short_username">Too short username</string>
-    <string name="birthday">birthday</string>
-    <string name="e">username</string>
+    <string name="birthday">Birthday: %s</string>
+    <string name="e">Username: %s</string>
+    <string name="city_s">City: %s</string>
+    <string name="phone_s">Phone: %s</string>
+    <string name="edit">Edit</string>
+    <string name="edit_your_profile">Edit your profile</string>
+    <string name="birthdaysd">Birthday:</string>
+    <string name="city">City</string>
+    <string name="instagram">Instagram:</string>
+    <string name="vk">VK:</string>
+    <string name="indalid_date">Invalid date, user 1900-01-01</string>
 </resources>

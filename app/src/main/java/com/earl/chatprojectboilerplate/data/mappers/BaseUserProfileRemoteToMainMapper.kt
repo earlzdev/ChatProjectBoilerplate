@@ -1,14 +1,10 @@
 package com.earl.chatprojectboilerplate.data.mappers
 
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileDtoMapper
-import com.earl.chatprojectboilerplate.data.remoteDataSource.models.AvatarsDto
-import com.earl.chatprojectboilerplate.domain.models.UserAvatars
+import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileDataRemoteToMainMapper
 import com.earl.chatprojectboilerplate.domain.models.UserProfileData
 import javax.inject.Inject
 
-class BaseUserProfileDataDtoMapper @Inject constructor(
-    private val avatarsMapper: AvatarsDtoMapper<UserAvatars>
-): UserProfileDtoMapper<UserProfileData> {
+class BaseUserProfileRemoteToMainMapper @Inject constructor(): UserProfileDataRemoteToMainMapper<UserProfileData> {
 
     override fun map(
         name: String,
@@ -25,22 +21,17 @@ class BaseUserProfileDataDtoMapper @Inject constructor(
         created: String,
         phone: String,
         completed_task: Int,
-        avatars: AvatarsDto?,
+        avatars: String,
     ) = UserProfileData(
+        id,
         name,
         username,
-        birthday,
+        phone,
         city,
+        birthday,
+        status,
         vk,
         instagram,
-        status,
-        avatar,
-        id,
-        last,
-        online,
-        created,
-        phone,
-        completed_task,
-        avatars?.map(avatarsMapper)
+        avatars
     )
 }

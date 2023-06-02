@@ -1,17 +1,22 @@
 package com.earl.chatprojectboilerplate.di
 
+import android.app.Application
 import com.earl.chatprojectboilerplate.data.AuthRepositoryImpl
 import com.earl.chatprojectboilerplate.data.MainRepositoryImpl
+import com.earl.chatprojectboilerplate.data.localDataSource.AppDatabase
+import com.earl.chatprojectboilerplate.data.localDataSource.UserProfileDao
+import com.earl.chatprojectboilerplate.data.localDataSource.UserProfileInfoDb
+import com.earl.chatprojectboilerplate.data.localDataSource.buildAppDatabase
+import com.earl.chatprojectboilerplate.data.localDataSource.mappers.UserProfileDbToMainMapper
 import com.earl.chatprojectboilerplate.data.remoteDataSource.AuthApiService
 import com.earl.chatprojectboilerplate.data.remoteDataSource.NetworkService
+import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.*
 import com.earl.chatprojectboilerplate.data.remoteDataSource.utils.buildNetworkService
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.AccessTokensDtoMapper
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.CurrentCountryCodeDtoMapper
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileDtoMapper
 import com.earl.chatprojectboilerplate.domain.AuthRepository
 import com.earl.chatprojectboilerplate.domain.MainRepository
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.CurrentCountryCode
+import com.earl.chatprojectboilerplate.data.remoteDataSource.models.UserProfileDataDto
 import com.earl.chatprojectboilerplate.domain.models.UserProfileData
 import com.google.gson.Gson
 import dagger.Module
@@ -44,10 +49,16 @@ object AppModule {
     @Singleton
     fun provideMainRepository(
         networkService: NetworkService,
-        userProfileDataMapper: UserProfileDtoMapper<UserProfileData>
+        profileDao: UserProfileDao,
+        userProfileRemoteToMainMapper: UserProfileDataRemoteToMainMapper<UserProfileData>,
+        userProfileRemoteToDbMapper: UserProfileRemoteToDbMapper<UserProfileInfoDb>,
+        userProfileDbToMainMapper: UserProfileDbToMainMapper<UserProfileData>
     ): MainRepository = MainRepositoryImpl(
         networkService,
-        userProfileDataMapper
+        profileDao,
+        userProfileRemoteToMainMapper,
+        userProfileRemoteToDbMapper,
+        userProfileDbToMainMapper
     )
 
     @Provides
@@ -57,4 +68,12 @@ object AppModule {
         okHttpClient: OkHttpClient,
         gson: Gson
     ) = buildNetworkService(retrofit, okHttpClient, gson)
+
+    @Provides
+    @Singleton
+    fun provideAppDb(app: Application) = buildAppDatabase(app)
+
+    @Provides
+    @Singleton
+    fun provideUserProfileDao(db: AppDatabase) = db.userProfileDap()
 }
