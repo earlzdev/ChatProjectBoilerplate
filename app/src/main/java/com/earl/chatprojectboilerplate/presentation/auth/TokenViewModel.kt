@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.TokenManager
+import com.earl.chatprojectboilerplate.presentation.utils.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +31,7 @@ class TokenViewModel @Inject constructor(
 
     fun saveTokens(token: AccessTokens) {
         viewModelScope.launch(Dispatchers.IO) {
+            log("token -> ${token.access}")
             tokenManager.saveAccessToken(token.access)
             tokenManager.saveRefreshToken(token.refresh)
         }

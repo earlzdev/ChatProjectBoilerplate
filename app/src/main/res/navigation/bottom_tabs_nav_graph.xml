@@ -9,20 +9,9 @@
         android:id="@+id/chatFragment"
         android:name="com.earl.chatprojectboilerplate.presentation.chat.ChatFragment"
         tools:layout="@layout/fragment_chat"
-        android:label="ChatFragment" >
-        <action
-            android:id="@+id/action_chatFragment_to_messagingFragment"
-            app:destination="@id/messagingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        tools:layout="@layout/fragment_profile"
-        android:name="com.earl.chatprojectboilerplate.presentation.profile.ProfileFragment"
-        android:label="ProfileFragment" />
-    <fragment
-        android:id="@+id/messagingFragment"
-        android:name="com.earl.chatprojectboilerplate.presentation.chat.MessagingFragment"
-        tools:layout="@layout/fragment_messaging"
-        android:label="MessagingFragment" />
+        android:label="ChatFragment"
+        />
+
+    <include app:graph="@navigation/profile_nav_graph" />
 
 </navigation>

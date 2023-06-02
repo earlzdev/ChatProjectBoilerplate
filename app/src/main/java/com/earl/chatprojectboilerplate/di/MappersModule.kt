@@ -1,12 +1,13 @@
 package com.earl.chatprojectboilerplate.di
 
+import com.earl.chatprojectboilerplate.data.localDataSource.UserProfileInfoDb
+import com.earl.chatprojectboilerplate.data.localDataSource.mappers.UserProfileDbToMainMapper
 import com.earl.chatprojectboilerplate.data.mappers.*
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.AccessTokensDtoMapper
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.CurrentCountryCodeDtoMapper
-import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.UserProfileDtoMapper
+import com.earl.chatprojectboilerplate.data.remoteDataSource.mappers.*
 import com.earl.chatprojectboilerplate.domain.models.AccessTokens
 import com.earl.chatprojectboilerplate.domain.models.CurrentCountryCode
 import com.earl.chatprojectboilerplate.domain.models.UserAvatars
+import com.earl.chatprojectboilerplate.data.remoteDataSource.models.UserProfileDataDto
 import com.earl.chatprojectboilerplate.domain.models.UserProfileData
 import dagger.Module
 import dagger.Provides
@@ -36,12 +37,21 @@ object MappersModule {
         return BaseUserProfileAvatarDtoMapper()
     }
 
+    @Provides
+    @Singleton
+    fun provideUserProfileRemoteToMainMapper(): UserProfileDataRemoteToMainMapper<UserProfileData> {
+        return BaseUserProfileRemoteToMainMapper()
+    }
 
     @Provides
     @Singleton
-    fun provideUserProfileDataDtoMapper(
-        avatarsMapper: AvatarsDtoMapper<UserAvatars>
-    ): UserProfileDtoMapper<UserProfileData> {
-        return BaseUserProfileDataDtoMapper(avatarsMapper)
+    fun provideUserProfileRemoteToDbMapper(): UserProfileRemoteToDbMapper<UserProfileInfoDb> {
+        return BaseUserProfileRemoteToDbMapper()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserProfileDbToMainMapper(): UserProfileDbToMainMapper<UserProfileData> {
+        return BaseUserProfileDbToMainMapper()
     }
 }

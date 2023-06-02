@@ -55,9 +55,7 @@ fun buildNetworkService(
     okHttpClient: OkHttpClient,
     gsonConverter: Gson
 ): NetworkService = retrofit
-    .baseUrl(baseUrl)
     .client(okHttpClient)
-    .addConverterFactory(GsonConverterFactory.create(gsonConverter))
     .addCallAdapterFactory(CoroutineCallAdapterFactory())
     .build()
     .create(NetworkService::class.java)
