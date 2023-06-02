@@ -15,6 +15,7 @@ import com.earl.chatprojectboilerplate.domain.models.UpdateUserProfileModel
 import com.earl.chatprojectboilerplate.domain.models.UserProfileData
 import com.earl.chatprojectboilerplate.presentation.utils.log
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
 import javax.inject.Inject
 
@@ -30,34 +31,42 @@ class MainRepositoryImpl @Inject constructor(
         networkService.fetchUserInfo()
     }
 
-    override suspend fun fetchUserProfileData(): DbResponse<UserProfileData> {
+    override suspend fun fetchUserProfileData(): Flow<DbResponse<UserProfileData>> {
         return try {
             val localDbResult = profileDao.fetchUserProfileInfo()
             return if (localDbResult == null) {
                 when(val remoteData = fetchRemoteUserProfileData().toList().last()) {
                     is ApiResponse.Success -> {
                         profileDao.insertNewUserProfile(remoteData.data.data.mapToDb(userProfileRemoteToDbMapper))
-                        DbResponse.Success(remoteData.data.data.map(userProfileRemoteToMainMapper))
+                        flowOf(DbResponse.Success(remoteData.data.data.map(userProfileRemoteToMainMapper)))
                     }
                     is ApiResponse.Failure -> {
-                        DbResponse.Fail(remoteData.errorMessage)
+                        flowOf(DbResponse.Fail(remoteData.errorMessage))
                     }
                     else -> {
-                        DbResponse.Loading()
+                        flowOf(DbResponse.Loading())
                     }
                 }
             } else {
-                DbResponse.Success(localDbResult.map(userProfileDbToMainMapper))
+                flowOf(DbResponse.Success(localDbResult.map(userProfileDbToMainMapper)))
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            DbResponse.Fail(e.message.toString())
+            flowOf(DbResponse.Fail(e.message.toString()))
         }
     }
 
     override suspend fun updateProfileInfo(updateModel: UpdateUserProfileModel) {
         try {
             networkService.updateUserProfileInfo(updateModel)
+            profileDao.updateUserProfile(
+                updateModel.city,
+                updateModel.birthday,
+                updateModel.status,
+                updateModel.vk,
+                updateModel.instagram,
+                updateModel.avatar.base_64
+            )
         } catch (e: Exception) {
             log("upadte error -> $e")
             e.printStackTrace()

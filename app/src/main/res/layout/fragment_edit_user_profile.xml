@@ -32,6 +32,16 @@
         android:layout_marginTop="20dp"
         />
 
+    <ImageButton
+        android:id="@+id/add_new_avatar_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/add_icon"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@id/user_avatar"
+        app:layout_constraintEnd_toEndOf="@id/user_avatar"
+        />
+
     <TextView
         android:id="@+id/city_tv"
         android:layout_width="wrap_content"
@@ -83,6 +93,7 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:hint="Birthday"
+
         android:background="@drawable/ed_bg"
         android:padding="6dp"
         android:fontFamily="@font/roboto_regular"

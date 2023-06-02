@@ -32,6 +32,6 @@ class BaseUserProfileRemoteToMainMapper @Inject constructor(): UserProfileDataRe
         status,
         vk,
         instagram,
-        avatar
+        avatars
     )
 }

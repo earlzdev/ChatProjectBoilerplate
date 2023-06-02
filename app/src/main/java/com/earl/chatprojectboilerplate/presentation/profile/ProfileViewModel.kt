@@ -22,7 +22,7 @@ class ProfileViewModel @Inject constructor(
 
     val userProfileInfo = flow {
         try {
-         emit(repository.fetchUserProfileData())
+         emitAll(repository.fetchUserProfileData())
         } catch (e: Exception) {
             log("e -> $e")
         }

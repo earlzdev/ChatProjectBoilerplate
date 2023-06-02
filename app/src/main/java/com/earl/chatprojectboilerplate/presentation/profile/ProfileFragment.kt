@@ -17,6 +17,7 @@ import com.earl.chatprojectboilerplate.databinding.FragmentProfileBinding
 import com.earl.chatprojectboilerplate.domain.models.ApiResponse
 import com.earl.chatprojectboilerplate.domain.models.DbResponse
 import com.earl.chatprojectboilerplate.presentation.utils.BaseFragment
+import com.earl.chatprojectboilerplate.presentation.utils.BitmapFromStringDecoder
 import com.earl.chatprojectboilerplate.presentation.utils.log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -57,6 +58,9 @@ class ProfileFragment: BaseFragment<FragmentProfileBinding>() {
                             binding.birthday.text = String.format(getString(R.string.birthday), it.value.birthday.takeIf { it != "" } ?: "No data")
                             binding.progressbar.visibility = View.GONE
                             binding.userInfo.visibility = View.VISIBLE
+                            if (it.value.avatar != "") {
+                                binding.userAvatar.setImageBitmap(BitmapFromStringDecoder().decode(it.value.avatar))
+                            }
                         }
                         is DbResponse.Fail -> {
                             Toast.makeText(requireContext(), "Failed, ${it.error}", Toast.LENGTH_SHORT).show()
